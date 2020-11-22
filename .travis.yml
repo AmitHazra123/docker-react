@@ -3,7 +3,7 @@ services:
   - docker
 
 env:
-  ELASTIC_BEANSTALK_LABEL: "Sample Application-3"
+  ELASTIC_BEANSTALK_LABEL: "sample-application-2"
 
 before_install:
   - docker build -t amithazra/docker-react -f Dockerfile.dev .
