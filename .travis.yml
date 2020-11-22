@@ -1,0 +1,25 @@
+sudo: required
+services:
+  - docker
+
+env:
+  ELASTIC_BEANSTALK_LABEL: "Sample Application-3"
+
+before_install:
+  - docker build -t amithazra/docker-react -f Dockerfile.dev .
+
+script:
+  - docker run -e CI=true amithazra/docker-react npm run test -- --coverage
+
+language: minimal
+deploy:
+  provider: elasticbeanstalk
+  region: "us-east-1"
+  app: "getting-started-app"
+  env: "GettingStartedApp-env"
+  bucket_name: "elasticbeanstalk-us-east-1-853537073375"
+  bucket_path: "getting-started-app"
+  on:
+    branch: master
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key: $AWS_SECRET_KEY
